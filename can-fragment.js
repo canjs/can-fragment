@@ -107,10 +107,6 @@ var makeFrag = function(item, doc) {
 	if (!item || typeof item === "string") {
 		frag = fragment(item == null ? "" : "" + item, document);
 		// If we have an empty frag...
-		if (!frag.childNodes.length) {
-			frag.appendChild(document.createTextNode(''));
-		}
-		return frag;
 	} else if (item.nodeType === 11) {
 		return item;
 	} else if (typeof item.nodeType === "number") {
@@ -122,18 +118,13 @@ var makeFrag = function(item, doc) {
 		canReflect.eachIndex(item, function(item) {
 			frag.appendChild(makeFrag(item));
 		});
-		if (!childNodes(frag).length) {
-			frag.appendChild(document.createTextNode(''));
-		}
-		return frag;
 	} else {
 		frag = fragment("" + item, document);
-		// If we have an empty frag...
-		if (!childNodes(frag).length) {
-			frag.appendChild(document.createTextNode(''));
-		}
-		return frag;
 	}
+    if (!frag.childNodes.length) {
+        frag.appendChild(document.createTextNode(''));
+    }
+    return frag;
 };
 
 module.exports = namespace.fragment = namespace.frag = makeFrag;
