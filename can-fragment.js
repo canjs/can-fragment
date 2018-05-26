@@ -121,7 +121,7 @@ var makeFrag = function(item, doc) {
 	} else {
 		frag = fragment("" + item, document);
 	}
-    if (!frag.childNodes.length) {
+    if (!childNodes(frag).length) {
         frag.appendChild(document.createTextNode(''));
     }
     return frag;

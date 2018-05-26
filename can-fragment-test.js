@@ -1,5 +1,7 @@
 var QUnit = require('steal-qunit');
 var fragment = require('./can-fragment');
+var makeDocument = require('can-vdom/make-document/make-document');
+var childNodes = require("can-child-nodes");
 
 QUnit.module('can-fragment');
 
@@ -17,4 +19,11 @@ QUnit.test('array element conversion', function(){
     ]);
     QUnit.equal(frag.childNodes.length, 2);
     QUnit.deepEqual(Array.from( frag.childNodes ), [div, span]);
+});
+
+QUnit.test("create a frag with the vdom", function(){
+    var doc = makeDocument();
+
+    var frag = fragment("<div></div><span></span>", doc);
+    QUnit.equal(childNodes(frag).length, 2);
 });
