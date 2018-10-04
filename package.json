@@ -46,7 +46,8 @@
     "can-child-nodes": "^1.0.0",
     "can-globals": "^1.0.1",
     "can-namespace": "^1.0.0",
-    "can-reflect": "^1.16.1"
+    "can-reflect": "^1.16.1",
+    "can-symbol": "^1.6.1"
   },
   "devDependencies": {
     "can-vdom": "^4.0.1",

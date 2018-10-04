@@ -4,13 +4,13 @@ var getDocument = require('can-globals/document/document');
 var namespace = require("can-namespace");
 var canReflect = require("can-reflect");
 var childNodes = require("can-child-nodes");
-
+var canSymbol = require("can-symbol");
 /**
 @module {function} can-fragment
 @parent can-dom-utilities
 @collection can-infrastructure
 
-Convert a String, HTMLElement, documentFragment, or contentArray into a documentFragment.
+Convert a String, HTMLElement, documentFragment, contentArray, or object with a `can.toDOM` symbol into a documentFragment.
 
 @signature `fragment(item, doc)`
 
@@ -44,7 +44,8 @@ ContentArrays can be used to combine multiple HTMLElements into a single documen
 // ---------
 // _DOM Fragment support._
 var fragmentRE = /^\s*<(\w+)[^>]*>/,
-	toString = {}.toString;
+	toString = {}.toString,
+	toDOMSymbol = canSymbol.for("can.toDOM");
 
 function makeFragment(html, name, doc) {
 	if (name === undefined) {
@@ -107,7 +108,10 @@ var makeFrag = function(item, doc) {
 	if (!item || typeof item === "string") {
 		frag = fragment(item == null ? "" : "" + item, document);
 		// If we have an empty frag...
-	} else if (item.nodeType === 11) {
+	} else if(typeof item[toDOMSymbol] === "function") {
+		return makeFrag(item[toDOMSymbol]());
+	}
+	else if (item.nodeType === 11) {
 		return item;
 	} else if (typeof item.nodeType === "number") {
 		frag = document.createDocumentFragment();
