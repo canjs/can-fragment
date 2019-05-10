@@ -6,34 +6,34 @@ var canReflect = require("can-reflect");
 
 QUnit.module('can-fragment');
 
-QUnit.test('string conversion', function(){
+QUnit.test('string conversion', function(assert) {
     var frag = fragment("<div></div><span></span>");
-    QUnit.equal(frag.childNodes.length, 2);
+    assert.equal(frag.childNodes.length, 2);
 });
 
-QUnit.test('array element conversion', function(){
+QUnit.test('array element conversion', function(assert) {
     var div = document.createElement("div"),
         span = document.createElement("span");
     var frag = fragment([
         div,
         span
     ]);
-    QUnit.equal(frag.childNodes.length, 2);
-    QUnit.deepEqual(Array.from( frag.childNodes ), [div, span]);
+    assert.equal(frag.childNodes.length, 2);
+    assert.deepEqual(Array.from( frag.childNodes ), [div, span]);
 });
 
-QUnit.test("create a frag with the vdom", function(){
+QUnit.test("create a frag with the vdom", function(assert) {
     var doc = makeDocument();
 
     var frag = fragment("<div></div><span></span>", doc);
-    QUnit.equal(childNodes(frag).length, 2);
+    assert.equal(childNodes(frag).length, 2);
 });
 
-QUnit.test("can.toDOM symbol works", function(){
+QUnit.test("can.toDOM symbol works", function(assert) {
 	var frag = fragment( canReflect.assignSymbols({},{
 		"can.toDOM": function(){
 			return "<div></div><span></span>";
 		}
 	}));
-    QUnit.equal(frag.childNodes.length, 2);
+    assert.equal(frag.childNodes.length, 2);
 });
