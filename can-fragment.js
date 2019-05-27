@@ -9,6 +9,7 @@ var canSymbol = require("can-symbol");
 @module {function} can-fragment
 @parent can-dom-utilities
 @collection can-infrastructure
+@package ./package.json
 
 Convert a String, HTMLElement, documentFragment, contentArray, or object with a `can.toDOM` symbol into a documentFragment.
 
